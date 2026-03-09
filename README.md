@@ -1,227 +1,172 @@
-#  Smart Doc Checker – AI-Powered Document Verification Tool
+# Smart Document Checker
 
- **Live Application:** https://smartdocchecker.streamlit.app
+A lightweight AI-assisted tool that analyzes multiple policy documents and automatically detects **contradicting rules** such as attendance requirements, submission deadlines, and notice periods.
+The application helps organizations maintain **consistent policies across documents** and quickly identify mismatches.
 
-## Overview
-
-**Smart Doc Checker** is an AI-powered document analysis tool designed to automatically review and verify documents for **consistency, accuracy, and policy compliance**.
-
-The system analyzes uploaded documents, detects **contradictions between rules**, and provides **clear suggestions to resolve inconsistencies**.
-
-This project was developed as part of a **hackathon innovation challenge**, focusing on improving document validation using **Natural Language Processing (NLP)** and **machine learning techniques**.
-
-The application provides a **user-friendly web interface using Streamlit**, allowing users to upload documents and receive instant analysis reports.
+Built using **Python, Streamlit, and rule-based text analysis**, the system provides instant feedback and generates downloadable reports for review.
 
 ---
 
-#  Problem Statement
+## Features
 
-Organizations often maintain multiple documents such as **policies, guidelines, and notices**.
-Over time these documents may become inconsistent or contradictory.
+* **Multi-document analysis** – Upload 2–3 documents (TXT or PDF) and analyze them together.
+* **Automatic rule extraction** – Detects structured rules such as:
 
-Examples:
-
-* Different documents defining **different deadlines**
-* Conflicting **attendance requirements**
-* Mismatched **submission rules**
-
-Manually reviewing documents to detect such inconsistencies is **time-consuming and error-prone**.
-
----
-
-#  Solution
-
-Smart Doc Checker provides an **automated AI solution** that:
-
-* Analyzes multiple documents simultaneously
-* Detects logical contradictions between rules
-* Generates clear suggestions to resolve conflicts
-* Provides downloadable verification reports
-
-The tool improves **document quality, policy consistency, and compliance management**.
+  * Attendance percentage
+  * Submission deadlines
+  * Notice periods
+  * Team member limits
+  * Presentation durations
+* **Contradiction detection** – Flags conflicting rules across documents.
+* **External policy monitoring** – Detects changes in external policy files and re-analyzes conflicts.
+* **Report generation** – Download a summary report of detected contradictions and suggestions.
+* **Fast execution** – Uses lightweight rule-based extraction instead of heavy ML models.
 
 ---
 
-#  Key Features
-
-✔ **Automated document analysis**
-
-✔ **Contradiction detection between documents**
-
-✔ **AI-powered rule extraction**
-
-✔ **Suggested corrections for inconsistencies**
-
-✔ **Interactive Streamlit interface**
-
-✔ **Downloadable analysis reports**
-
-✔ **External policy monitoring for updates**
-
----
-
-#  AI & NLP Techniques Used
-
-The system integrates multiple AI components:
-
-### Natural Language Inference (NLI)
-
-Model used:
-
-```
-facebook/bart-large-mnli
-```
-
-Purpose:
-
-* Detect contradictions between statements in different documents
-* Evaluate whether rules conflict with each other
-
----
-
-### Rule Extraction
-
-Important rules such as:
-
-* Attendance requirements
-* Deadlines
-* Submission rules
-* Notices
-
-are automatically extracted from document text using **pattern matching and NLP techniques**.
-
----
-
-### Suggestion Engine
-
-Once conflicts are detected, the system generates **actionable suggestions** to help users resolve inconsistencies.
-
-Example:
-
-```
-Conflict detected:
-Attendance requirement: 75%
-Attendance requirement: 80%
-
-Suggested Fix:
-Align the required percentages across documents to avoid contradictions.
-```
-
----
-
-#  Technologies Used
-
-### Programming
+## Tech Stack
 
 * **Python**
-
-### Machine Learning / NLP
-
-* **Hugging Face Transformers**
-* **BART Large MNLI Model**
-* **PyTorch**
-
-### Data Processing
-
-* **Pandas**
-* **Regex**
-
-### Document Processing
-
-* **PyPDF2**
-
-### Interface
-
-* **Streamlit**
-
-### Visualization
-
-* **Matplotlib**
+* **Streamlit** – Web interface
+* **PyPDF2** – PDF text extraction
+* **Regex (Regular Expressions)** – Rule extraction and comparison
 
 ---
 
-#  Project Structure
+## Project Structure
 
 ```
-smart-doc-checker
+SmartDocChecker
 │
 ├── app.py
-├── README.md
 │
-├── mock_external
+├── datasets
+│   ├── doc1.txt
+│   ├── doc2.txt
+│   └── doc3.txt
+│
+└── mock_external
     └── external_policy.txt
-
 ```
-
-| File               | Description                                      |
-| ------------------ | ------------------------------------------------ |
-| `app.py`           | Main Streamlit application                       |
-| `mock_external/`   | External policy documents for monitoring updates |
-| `README.md`        | Project documentation                            |
 
 ---
 
-#  Installation
+## Installation
 
-Clone the repository:
+Clone the repository and install dependencies.
 
 ```bash
-git clone https://github.com/K-Anusha-13/smart-doc-checker.git
-cd smart-doc-checker
+git clone https://github.com/your-username/smart-document-checker.git
+cd smart-document-checker
+pip install streamlit PyPDF2
 ```
 
 ---
 
-#  Running the Application
+## Running the Application
 
-Start the Streamlit application:
+Start the Streamlit server:
 
 ```bash
 streamlit run app.py
 ```
 
-The application will launch in your browser.
+---
+
+## How It Works
+
+1. **Upload Documents**
+   Users upload 2–3 documents containing rules or policies.
+
+2. **Text Extraction**
+
+   * TXT files are read directly.
+   * PDF files are processed using PyPDF2.
+
+3. **Rule Detection**
+   Regular expressions extract structured rules such as attendance percentages and deadlines.
+
+4. **Conflict Detection**
+   Extracted rules from each document are compared.
+   If values differ, the system flags them as **contradictions**.
+
+5. **External Policy Monitoring**
+   The system checks an external policy file (`external_policy.txt`).
+   If updated, it re-analyzes all documents with the new policy.
+
+6. **Report Generation**
+   A downloadable report summarizes contradictions and suggested fixes.
 
 ---
 
-#  Example Workflow
-
-1. Upload **2–3 documents (PDF or TXT)**
-2. The system extracts text and identifies important rules
-3. AI model analyzes rules across documents
-4. Contradictions are detected
-5. Suggestions are generated to resolve conflicts
-6. A **downloadable report** is generated
-
----
-
-#  Example Output
-
-Example conflict:
+## Example Output
 
 ```
-Conflict between Doc 1 (attendance: 75%)
-and Doc 2 (attendance: 80%)
+⚠️ Attendance conflict:
+Doc 1: 75%
+Doc 2: 65%
+Doc 3: 80%
+Doc 4: 70%
+
+⚠️ Submission conflict:
+Doc 1: 10 PM
+Doc 2: 8 PM
+
+⚠️ Notice conflict:
+Doc 1: 2 weeks
+Doc 3: 3 weeks
+Doc 4: 2 weeks
 ```
 
-Suggested fix:
+Suggested Fix:
 
 ```
-Align attendance requirements across documents to avoid policy conflicts.
+• Standardize attendance percentage across all documents
+• Ensure submission deadlines are consistent
+• Align notice period rules
 ```
 
 ---
 
-#  Future Improvements
+## External Policy Updates
 
-* Support **Word (.docx) documents**
-* Real-time document monitoring
-* Integration with **enterprise document management systems**
-* Advanced grammar and compliance analysis
-* Cloud deployment and API integration
+To simulate external updates:
+
+1. Open:
+
+```
+mock_external/external_policy.txt
+```
+
+2. Modify rules such as attendance or deadlines.
+
+3. Click **"Check External Policy"** in the application.
+
+The system will detect the update and re-analyze documents.
 
 ---
-##  Developed For
 
-Hackathon Submission – Denovate(Miscrosoft Hyderabad)
+## Use Cases
+
+* **University policy verification**
+* **HR compliance checks**
+* **Legal document review**
+* **Government regulation comparison**
+* **Corporate guideline validation**
+
 ---
+
+## Future Improvements
+
+* Natural Language Processing (NLP) models for deeper semantic comparison
+* Support for DOCX files
+* Database-based document management
+* Dashboard analytics for policy trends
+
+---
+
+## Author
+
+**K Swathi Royal**
+
+Project developed for **Denovate Hackathon - Microsoft Hyderabad**.
